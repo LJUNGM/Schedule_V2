@@ -12,7 +12,7 @@ import java.io.IOException;
 @Slf4j
 public class LoginFilter implements Filter {
 
-    private static final String[] WHITE_LIST = {"/","/login/check","/login"};
+    private static final String[] WHITE_LIST = {"/","/login/check","/login","/*"};
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest)request;

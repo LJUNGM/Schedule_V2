@@ -16,7 +16,8 @@ public class TodoController {
 
     @PostMapping("/create")
     public ResponseEntity<TodoResponseDto> createTodo(@RequestBody TodoRequestDto todoRequestDto) {
-        return new ResponseEntity<>(todoService.createTodo(todoRequestDto), HttpStatus.CREATED);
+        TodoResponseDto todoResponseDto = todoService.createTodo(todoRequestDto.getUsername(), todoRequestDto.getTitle(), todoRequestDto.getContents());
+        return new ResponseEntity<>(todoResponseDto, HttpStatus.CREATED);
     }
 
     @GetMapping("/find/{id}")

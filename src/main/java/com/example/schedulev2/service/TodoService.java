@@ -4,6 +4,7 @@ import com.example.schedulev2.dto.TodoRequestDto;
 import com.example.schedulev2.dto.TodoResponseDto;
 import com.example.schedulev2.entity.Todo;
 import com.example.schedulev2.repository.TodoRepository;
+import com.example.schedulev2.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TodoService {
     private final TodoRepository todoRepository;
+    private final UserRepository userRepository;
 
     @Transactional
-    public TodoResponseDto createTodo(TodoRequestDto todoRequestDto) {
-        Todo todo = new Todo(todoRequestDto.getUsername(),todoRequestDto.getTitle(),todoRequestDto.getContents());
-        Todo savedTodo = todoRepository.save(todo);
-        return new TodoResponseDto(savedTodo.getId(),savedTodo.getUsername(),savedTodo.getTitle(),savedTodo.getContents(),savedTodo.getCreateAt(),savedTodo.getModifiedAt());
+    public TodoResponseDto createTodo(String username, String title,String contents) {
+        Todo todo = new Todo(username, title,contents);
+        todoRepository.save(todo);
+        return new TodoResponseDto(todo.getId(),todo.getUsername(),todo.getTitle(),todo.getContents(),todo.getCreateAt(),todo.getModifiedAt());
     }
 
     @Transactional
